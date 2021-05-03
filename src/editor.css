@@ -1,0 +1,36 @@
+.quotes__container{
+	background:#fff;
+	height: 350px;
+	padding: 10px;
+	display:grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	column-gap: 10px;
+	row-gap: 10px;
+	overflow: scroll;
+}
+
+.quotes__item{
+	height: 250px;
+	border: 1px solid #222;
+	border-radius: 10px;
+}
+
+.quotes__button{
+	width:144px;
+	height:40px;
+	position: absolute;
+	background: rgb(218, 82, 111);
+	border:none;
+	border-radius:10px;
+	color:#fff;
+	left: calc(50% - 72px);
+	top:305px;
+}
+
+.quotes__noQuote{
+	width:80%;
+	margin:auto;
+	margin-top:20%;
+	text-align: center;
+	color: rgb(218, 82, 111);
+}

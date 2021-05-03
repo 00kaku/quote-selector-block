@@ -22,7 +22,7 @@
 
  * @return void
  */
-function basic_quote_block_enqueue_scripts() {
+function quote_selector_block_enqueue_scripts() {
 	$asset_file = is_readable( plugin_dir_path( __FILE__ ) . 'build/index.asset.php' ) && require plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 	wp_register_script(
 		'quote-selector-block',
@@ -46,7 +46,7 @@ function basic_quote_block_enqueue_scripts() {
 	);
 
 	register_block_type(
-		'basic/quote-block',
+		'quote/selector-block',
 		array(
 			'api_version'   => 2,
 			'editor_script' => 'quote-selector-block',
@@ -56,4 +56,4 @@ function basic_quote_block_enqueue_scripts() {
 	);
 }
 
-add_action( 'init', 'basic_quotE_block_enqueue_scripts' );
+add_action( 'init', 'quote_selector_block_enqueue_scripts' );
