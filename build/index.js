@@ -107,35 +107,59 @@ var quotesEditor = function quotesEditor(_ref) {
       setAttributes = _ref.setAttributes,
       attributes = _ref.attributes;
 
-  var handlePostSelect = function handlePostSelect(id) {
+  var handlePostSelect = function handlePostSelect(post) {
     setAttributes({
-      isSelected: true,
-      postId: id
+      isChecked: true,
+      post: post
     });
   };
 
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["useBlockProps"])(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  var handleApprove = function handleApprove() {
+    setAttributes({
+      isApproved: true
+    });
+  };
+
+  console.log(attributes.isApproved);
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["useBlockProps"])(), !attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quotes__container"
   }, !posts && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quotes__noQuote"
   }, "Loading "), posts && (posts.length > 0 ? posts.map(function (post) {
+    var _post$_embedded, _post$_embedded$wpFe, _attributes$post;
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       key: post.id,
       className: "quotes__item",
       onClick: function onClick() {
-        return handlePostSelect(post.id);
+        return handlePostSelect(post);
       },
       onKeyDown: function onKeyDown(e) {
-        return e.key === 'Enter' && handlePostSelect(post.id);
+        return e.key === 'Enter' && handlePostSelect(post);
       },
       role: "button",
-      tabIndex: 0
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", null, post.title.rendered)) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null);
+      tabIndex: 0,
+      style: {
+        backgroundImage: "url( ".concat(((_post$_embedded = post._embedded) === null || _post$_embedded === void 0 ? void 0 : (_post$_embedded$wpFe = _post$_embedded['wp:featuredmedia'][0]) === null || _post$_embedded$wpFe === void 0 ? void 0 : _post$_embedded$wpFe.source_url) || 'https://via.placeholder.com/150', ")"),
+        backgroundSize: 'cover'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "quotes__check ".concat(((_attributes$post = attributes.post) === null || _attributes$post === void 0 ? void 0 : _attributes$post.id) === post.id && 'checked')
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
+      className: "quote__title"
+    }, post.title.rendered)) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null);
   }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quotes__noQuote"
-  }, "No Quotes are available.")), (attributes === null || attributes === void 0 ? void 0 : attributes.isSelected) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    className: "quotes__button"
-  }, "Approve")));
+  }, "No Quotes are available.")), (attributes === null || attributes === void 0 ? void 0 : attributes.isChecked) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    className: "quotes__button",
+    onClick: handleApprove
+  }, "Approve")), attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, attributes.post.title.rendered, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    onClick: function onClick() {
+      return setAttributes({
+        isApproved: false
+      });
+    }
+  }, "Change")));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (quotesEditor);
@@ -175,17 +199,23 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__["registerBlockType"])('quo
   icon: 'images-alt2',
   category: 'design',
   attributes: {
-    postId: {
-      type: 'number'
+    post: {
+      type: 'Object'
     },
-    isSelected: {
+    isChecked: {
+      type: 'boolean',
+      default: false
+    },
+    isApproved: {
       type: 'boolean',
       default: false
     }
   },
   edit: withSelect(function () {
     return {
-      posts: select('core').getEntityRecords('postType', 'quotes')
+      posts: select('core').getEntityRecords('postType', 'quotes', {
+        _embed: true
+      })
     };
   })(_components_quotes_editor__WEBPACK_IMPORTED_MODULE_2__["default"]),
   save: function save() {

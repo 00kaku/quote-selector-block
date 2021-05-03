@@ -11,8 +11,32 @@
 
 .quotes__item{
 	height: 250px;
-	border: 1px solid #222;
 	border-radius: 10px;
+	color: #fff;
+	font-family:monospace;
+}
+.quotes__item:hover{
+	filter: grayscale(0.4);
+}
+.quote__title{
+	font-weight: 1000;
+	margin-left: auto;
+	margin-right: auto;
+	width:90%;
+	border-bottom: 1px solid #fff;
+	text-align: center;
+}
+.quotes__check{
+	width:20px;
+	height:20px;
+	border:1px solid rgb(74, 231, 165);
+	position: relative;
+	top:20px;
+	right:calc(-100% + 25px);
+	border-radius:50%;
+}
+.quotes__check.checked{
+	background-color:rgb(74, 231, 165);
 }
 
 .quotes__button{

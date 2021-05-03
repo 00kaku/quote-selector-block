@@ -14,17 +14,23 @@ registerBlockType( 'quote/selector-block', {
 	icon: 'images-alt2',
 	category: 'design',
 	attributes: {
-		postId: {
-			type: 'number',
+		post: {
+			type: 'Object',
 		},
-		isSelected: {
+		isChecked: {
+			type: 'boolean',
+			default: false,
+		},
+		isApproved: {
 			type: 'boolean',
 			default: false,
 		},
 	},
 	edit: withSelect( () => {
 		return {
-			posts: select( 'core' ).getEntityRecords( 'postType', 'quotes' ),
+			posts: select( 'core' ).getEntityRecords( 'postType', 'quotes', {
+				_embed: true,
+			} ),
 		};
 	} )( quotesEditor ),
 	save: () => {
