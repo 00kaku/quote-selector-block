@@ -6,7 +6,6 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 	const handleApprove = () => {
 		setAttributes( { isApproved: true } );
 	};
-	console.log( attributes.isApproved );
 	return (
 		<div { ...useBlockProps() }>
 			{ ! attributes.isApproved && (
@@ -72,7 +71,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 			) }
 			{ attributes.isApproved && (
 				<div>
-					{attributes.post.title.rendered}
+					{ attributes.post.title.rendered }
 					<button
 						onClick={ () => setAttributes( { isApproved: false } ) }
 					>

@@ -120,7 +120,6 @@ var quotesEditor = function quotesEditor(_ref) {
     });
   };
 
-  console.log(attributes.isApproved);
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["useBlockProps"])(), !attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quotes__container"
   }, !posts && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
