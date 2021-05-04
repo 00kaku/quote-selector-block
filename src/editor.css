@@ -58,3 +58,13 @@
 	text-align: center;
 	color: rgb(218, 82, 111);
 }
+
+.quote__button{
+	width:144px;
+	height:40px;
+	background: rgb(218, 82, 111);
+	border:none;
+	border-radius:10px;
+	color:#fff;
+	margin-left: calc(50% - 72px);
+}

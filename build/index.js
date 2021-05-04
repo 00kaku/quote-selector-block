@@ -239,8 +239,10 @@ var quotesEditor = function quotesEditor(_ref) {
     className: "quotes__button",
     onClick: handleApprove
   }, "Approve")), attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    quote: attributes.post
+    quote: attributes.post,
+    color: attributes.color
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
+    className: "quote__button",
     onClick: function onClick() {
       return setAttributes({
         isApproved: false

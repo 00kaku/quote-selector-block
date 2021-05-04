@@ -96,8 +96,12 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 			) }
 			{ attributes.isApproved && (
 				<div>
-					<Quote quote={ attributes.post } />
+					<Quote
+						quote={ attributes.post }
+						color={ attributes.color }
+					/>
 					<button
+						className="quote__button"
 						onClick={ () => setAttributes( { isApproved: false } ) }
 					>
 						Change
