@@ -5,12 +5,8 @@ If the user want it can also change the quote using the change button. The user 
 from the side controls once a quote is selected.
 
 #### Screenshots
-x-special/nautilus-clipboard
-copy
-file:///home/kaku/Desktop/Screenshot%20from%202021-05-04%2016-43-46.png
-x-special/nautilus-clipboard
-copy
-file:///home/kaku/Desktop/Screenshot%20from%202021-05-04%2016-44-03.png
+![Screenshot from 2021-05-04 16-43-46](https://user-images.githubusercontent.com/22026768/116995773-1dfe3d00-acf8-11eb-9c84-d230bd62dfba.png)
+![Screenshot from 2021-05-04 16-44-03](https://user-images.githubusercontent.com/22026768/116995781-1f2f6a00-acf8-11eb-98e6-68ac1fa73f05.png)
 
 #### How to use
 1. Get the **quotes-cpt** plugin from the repo **https://github.com/00kaku/cpt-quote**.
