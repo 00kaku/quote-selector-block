@@ -1,4 +1,12 @@
 import { __ } from '@wordpress/i18n';
+/**
+ * This function will display the selected quote.
+ *
+ * @param {Object} props The function props.
+ * @param {Object} props.quote The quote object.
+ * @param {string} props.color The theme color.
+ * @return {undefined}
+ */
 const Quote = ( { quote, color } ) => {
 	return (
 		<div>

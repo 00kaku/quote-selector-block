@@ -101,6 +101,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 
 
+/**
+ * This function will display the selected quote.
+ *
+ * @param {Object} props The function props.
+ * @param {Object} props.quote The quote object.
+ * @param {string} props.color The theme color.
+ * @return {undefined}
+ */
 
 var Quote = function Quote(_ref) {
   var quote = _ref.quote,
@@ -171,6 +179,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * This function will provied the user with grid of all post of type quotes and let them select a quote to display.
+ * It will then use imported Quote component to display the quote.
+ *
+ * @param {Object} props The object passed from the index.js.
+ * @param {Array} props.posts The array of all the posts type quotes.
+ * @param {Function} props.setAttributes The function to update attributes of the block.
+ * @param {Object} props.attributes The attributes of the block.
+ * @return {undefined}
+ */
 
 var quotesEditor = function quotesEditor(_ref) {
   var posts = _ref.posts,
