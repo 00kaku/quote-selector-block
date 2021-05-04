@@ -216,7 +216,7 @@ var quotesEditor = function quotesEditor(_ref) {
     className: "quotes__container"
   }, !posts && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quotes__noQuote"
-  }, "__( ", 'Loading', " )"), posts && (posts.length > 0 ? posts.map(function (post) {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Loading')), posts && (posts.length > 0 ? posts.map(function (post) {
     var _post$_embedded2, _post$_embedded2$wpF, _attributes$post;
 
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {

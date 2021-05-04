@@ -38,7 +38,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 				<div className="quotes__container">
 					{ ! posts && (
 						<div className="quotes__noQuote">
-							__( { 'Loading' } )
+							{ __( 'Loading' ) }
 						</div>
 					) }
 
