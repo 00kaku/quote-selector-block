@@ -2,6 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import quotesEditor from './components/quotes-editor';
 const { withSelect, select } = wp.data;
+import Quote from './components/Quote';
 /**
  * The function register our block with the cofiguration passed in the second argument. The 'edit' function in the object
  * the editor component presented to the user to make changes and the 'save' function is what will be presented on the screen.
@@ -16,6 +17,7 @@ registerBlockType( 'quote/selector-block', {
 	attributes: {
 		post: {
 			type: 'Object',
+			default: null,
 		},
 		isChecked: {
 			type: 'boolean',
@@ -37,7 +39,9 @@ registerBlockType( 'quote/selector-block', {
 			} ),
 		};
 	} )( quotesEditor ),
-	save: () => {
-		return null;
+	save: ( { attributes } ) => {
+		return attributes.post === null ? null : (
+			<Quote quote={ attributes?.post } color={ attributes?.color } />
+		);
 	},
 } );

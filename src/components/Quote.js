@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 const Quote = ( { quote, color } ) => {
 	return (
 		<div>
@@ -7,7 +8,7 @@ const Quote = ( { quote, color } ) => {
 					'border-top': `2px solid ${ color }`,
 				} }
 			>
-				<p className="quote__quote">{ quote.quote }</p>
+				<p className="quote__quote">{ __( quote?.quote ) }</p>
 			</div>
 			<div className="quote__footer">
 				<div className="quote__footer__text">
@@ -20,7 +21,7 @@ const Quote = ( { quote, color } ) => {
 							margin: '0',
 						} }
 					>
-						{ quote.citation }
+						{ __( quote?.citation ) }
 					</h3>
 					<h4
 						style={ {
@@ -34,14 +35,14 @@ const Quote = ( { quote, color } ) => {
 							marginLeft: 'auto',
 						} }
 					>
-						{ quote.author }
+						{ __( quote?.author ) }
 					</h4>
 				</div>
 				<div className="image__outer">
 					<div className="image">
 						<img
-							src={ quote.srcUrl }
-							alt={ `Author: ${ quote.author || 'Unknown' }` }
+							src={ __( quote?.srcUrl ) }
+							alt={ `Author: ${ quote?.author || 'Unknown' }` }
 						/>
 					</div>
 				</div>

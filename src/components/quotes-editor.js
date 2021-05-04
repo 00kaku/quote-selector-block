@@ -5,6 +5,7 @@ import {
 } from '@wordpress/block-editor';
 import Quote from './Quote';
 import { PanelBody } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 	const handlePostSelect = ( post ) => {
 		const updatedPost = {
@@ -36,7 +37,9 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 			{ ! attributes.isApproved && (
 				<div className="quotes__container">
 					{ ! posts && (
-						<div className="quotes__noQuote">Loading </div>
+						<div className="quotes__noQuote">
+							__( { 'Loading' } )
+						</div>
 					) }
 
 					{ posts &&
@@ -73,14 +76,14 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 												}` }
 											></div>
 											<h3 className="quote__title">
-												{ post.title.rendered }
+												{ __( post.title.rendered ) }
 											</h3>
 										</div>
 									) || <div></div>
 							)
 						) : (
 							<div className="quotes__noQuote">
-								No Quotes are available.
+								{ __( 'No Quotes are available.' ) } )
 							</div>
 						) ) }
 
@@ -89,7 +92,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 							className="quotes__button"
 							onClick={ handleApprove }
 						>
-							Approve
+							{ __( 'Approve' ) }
 						</button>
 					) }
 				</div>
@@ -102,9 +105,11 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 					/>
 					<button
 						className="quote__button"
-						onClick={ () => setAttributes( { isApproved: false } ) }
+						onClick={ () =>
+							setAttributes( { isApproved: false, post: null } )
+						}
 					>
-						Change
+						{ __( 'Change' ) }
 					</button>
 				</div>
 			) }
