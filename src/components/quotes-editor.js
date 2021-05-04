@@ -1,13 +1,38 @@
-import { useBlockProps } from '@wordpress/block-editor';
+import {
+	useBlockProps,
+	InspectorControls,
+	ColorPalette,
+} from '@wordpress/block-editor';
+import Quote from './Quote';
+import { PanelBody } from '@wordpress/components';
 const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 	const handlePostSelect = ( post ) => {
-		setAttributes( { isChecked: true, post } );
+		const updatedPost = {
+			id: post.id,
+			title: post.title.rendered,
+			quote: post.meta.quote,
+			author: post.meta.author,
+			citation: post.meta.citation,
+			srcUrl:
+				post._embedded?.[ 'wp:featuredmedia' ][ 0 ]?.source_url ||
+				'https://via.placeholder.com/150',
+		};
+
+		setAttributes( { isChecked: true, post: updatedPost } );
 	};
 	const handleApprove = () => {
 		setAttributes( { isApproved: true } );
 	};
 	return (
 		<div { ...useBlockProps() }>
+			<InspectorControls key="settings">
+				<PanelBody title="Theme Color" initialOpen={ true }>
+					<ColorPalette
+						onChange={ ( color ) => setAttributes( { color } ) }
+						value={ attributes.color }
+					/>
+				</PanelBody>
+			</InspectorControls>
 			{ ! attributes.isApproved && (
 				<div className="quotes__container">
 					{ ! posts && (
@@ -71,7 +96,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 			) }
 			{ attributes.isApproved && (
 				<div>
-					{ attributes.post.title.rendered }
+					<Quote quote={ attributes.post } />
 					<button
 						onClick={ () => setAttributes( { isApproved: false } ) }
 					>

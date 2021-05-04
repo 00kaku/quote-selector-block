@@ -25,6 +25,10 @@ registerBlockType( 'quote/selector-block', {
 			type: 'boolean',
 			default: false,
 		},
+		color: {
+			type: 'string',
+			default: '#222',
+		},
 	},
 	edit: withSelect( () => {
 		return {
