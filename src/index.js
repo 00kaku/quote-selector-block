@@ -23,6 +23,10 @@ registerBlockType( 'quote/selector-block', {
 			type: 'string',
 			default: '#222',
 		},
+		isSelected: {
+			type: 'boolean',
+			default: false,
+		},
 	},
 	edit: withSelect( () => {
 		return {

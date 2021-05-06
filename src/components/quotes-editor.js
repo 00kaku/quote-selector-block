@@ -4,7 +4,7 @@ import {
 	ColorPalette,
 } from '@wordpress/block-editor';
 import Quote from './Quote';
-import { PanelBody } from '@wordpress/components';
+import { PanelBody, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 /**
  * This function will provied the user with grid of all post of type quotes and let them select a quote to display.
@@ -28,14 +28,42 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 				post._embedded?.[ 'wp:featuredmedia' ][ 0 ]?.source_url ||
 				'https://via.placeholder.com/150',
 		};
+
+		setAttributes( { post: updatedPost, isSelected: true } );
 	};
+	const optionsArray = [];
+	if ( posts?.length > 0 ) {
+		optionsArray.push( { value: 0, label: 'Select a quote from below ' } );
+		posts.map( ( post ) => {
+			return optionsArray.push( {
+				value: JSON.stringify( post ),
+				label: __( post.title.rendered, 'quotes-selector-plugin' ),
+			} );
+		} );
+	} else {
+		optionsArray.push( { value: 0, label: 'No Quotes available' } );
+	}
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls key="settings">
-				<PanelBody title={ __( 'Theme Color' ) } initialOpen={ true }>
+				<PanelBody
+					title={ __( 'Theme Color', 'quotes-selector-plugin' ) }
+					initialOpen={ false }
+				>
 					<ColorPalette
 						onChange={ ( color ) => setAttributes( { color } ) }
 						value={ attributes.color }
+					/>
+				</PanelBody>
+				<PanelBody
+					title={ __( 'Select post', 'quotes-selector-plugin' ) }
+					initialOpen={ true }
+				>
+					<SelectControl
+						options={ optionsArray }
+						onChange={ ( post ) =>
+							post !== 0 && handlePostSelect( JSON.parse( post ) )
+						}
 					/>
 				</PanelBody>
 			</InspectorControls>

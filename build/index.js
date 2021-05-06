@@ -206,13 +206,37 @@ var quotesEditor = function quotesEditor(_ref) {
       citation: post.meta.citation,
       srcUrl: ((_post$_embedded = post._embedded) === null || _post$_embedded === void 0 ? void 0 : (_post$_embedded$wpFe = _post$_embedded['wp:featuredmedia'][0]) === null || _post$_embedded$wpFe === void 0 ? void 0 : _post$_embedded$wpFe.source_url) || 'https://via.placeholder.com/150'
     };
+    setAttributes({
+      post: updatedPost,
+      isSelected: true
+    });
   };
+
+  var optionsArray = [];
+
+  if ((posts === null || posts === void 0 ? void 0 : posts.length) > 0) {
+    optionsArray.push({
+      value: 0,
+      label: 'Select a quote from below '
+    });
+    posts.map(function (post) {
+      return optionsArray.push({
+        value: JSON.stringify(post),
+        label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])(post.title.rendered, 'quotes-selector-plugin')
+      });
+    });
+  } else {
+    optionsArray.push({
+      value: 0,
+      label: 'No Quotes available'
+    });
+  }
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["useBlockProps"])(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], {
     key: "settings"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Theme Color'),
-    initialOpen: true
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Theme Color', 'quotes-selector-plugin'),
+    initialOpen: false
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["ColorPalette"], {
     onChange: function onChange(color) {
       return setAttributes({
@@ -220,6 +244,14 @@ var quotesEditor = function quotesEditor(_ref) {
       });
     },
     value: attributes.color
+  })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Select post', 'quotes-selector-plugin'),
+    initialOpen: true
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
+    options: optionsArray,
+    onChange: function onChange(post) {
+      return post !== 0 && handlePostSelect(JSON.parse(post));
+    }
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
     quote: attributes.post,
     color: attributes.color
@@ -275,6 +307,10 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('quo
     color: {
       type: 'string',
       default: '#222'
+    },
+    isSelected: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: withSelect(function () {
