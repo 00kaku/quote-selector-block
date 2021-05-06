@@ -27,6 +27,18 @@ registerBlockType( 'quote/selector-block', {
 			type: 'boolean',
 			default: false,
 		},
+		optionsArray: {
+			type: 'Array',
+			default: [],
+		},
+		spliceOptionsArray: {
+			type: 'Array',
+			default: [],
+		},
+		term: {
+			type: 'string',
+			default: '',
+		},
 	},
 	edit: withSelect( () => {
 		return {

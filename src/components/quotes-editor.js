@@ -6,6 +6,7 @@ import {
 import Quote from './Quote';
 import { PanelBody, SelectControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useEffect } from 'react';
 /**
  * This function will provied the user with grid of all post of type quotes and let them select a quote to display.
  * It will then use imported Quote component to display the quote.
@@ -31,18 +32,53 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 
 		setAttributes( { post: updatedPost, isSelected: true } );
 	};
-	const optionsArray = [];
-	if ( posts?.length > 0 ) {
-		optionsArray.push( { value: 0, label: 'Select a quote from below ' } );
-		posts.map( ( post ) => {
-			return optionsArray.push( {
-				value: JSON.stringify( post ),
-				label: __( post.title.rendered, 'quotes-selector-plugin' ),
+	useEffect( () => {
+		const optionsArray = [];
+		if ( posts?.length > 0 ) {
+			optionsArray.push( {
+				value: 0,
+				label: 'Select a quote from below ',
 			} );
+			posts.map( ( post ) => {
+				return optionsArray.push( {
+					value: JSON.stringify( post ),
+					label: __( post.title.rendered, 'quotes-selector-plugin' ),
+				} );
+			} );
+		} else {
+			optionsArray.push( {
+				value: 0,
+				label: __( 'No Quotes available' ),
+			} );
+		}
+
+		setAttributes( { optionsArray, spliceOptionsArray: optionsArray } );
+	}, [ posts ] );
+
+	const handleTermChange = ( term ) => {
+		const tempArray = [];
+		setAttributes( { term } );
+		attributes.optionsArray.forEach( ( element ) => {
+			if (
+				element.label.toLowerCase().includes( term.toLowerCase() ) &&
+				element.value !== 0
+			) {
+				if ( tempArray.length === 0 ) {
+					tempArray.push( {
+						value: 0,
+						label: __( 'Updated Quotes' ),
+					} );
+				}
+				tempArray.push( element );
+			}
 		} );
-	} else {
-		optionsArray.push( { value: 0, label: 'No Quotes available' } );
-	}
+
+		if ( tempArray.length > 0 && term !== '' ) {
+			setAttributes( { spliceOptionsArray: tempArray } );
+		} else {
+			setAttributes( { spliceOptionsArray: attributes.optionsArray } );
+		}
+	};
 	return (
 		<div { ...useBlockProps() }>
 			<InspectorControls key="settings">
@@ -56,11 +92,20 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 					/>
 				</PanelBody>
 				<PanelBody
-					title={ __( 'Select post', 'quotes-selector-plugin' ) }
+					title={ __( 'Select quote', 'quotes-selector-plugin' ) }
 					initialOpen={ true }
 				>
+					<input
+						type="text"
+						placeholder="Search to filter quotes."
+						onChange={ ( event ) =>
+							handleTermChange( event.target.value )
+						}
+						value={ attributes.term }
+						className="quotes-selector-filter"
+					/>
 					<SelectControl
-						options={ optionsArray }
+						options={ attributes.spliceOptionsArray }
 						onChange={ ( post ) =>
 							post !== 0 && handlePostSelect( JSON.parse( post ) )
 						}
