@@ -120,7 +120,7 @@ var Quote = function Quote(_ref) {
     }
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
     className: "quote__quote"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(quote === null || quote === void 0 ? void 0 : quote.quote))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])((quote === null || quote === void 0 ? void 0 : quote.quote) || 'No quote selected'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quote__footer"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "quote__footer__text"
@@ -132,7 +132,7 @@ var Quote = function Quote(_ref) {
       fontFamily: 'Alegreya SC, serif',
       margin: '0'
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(quote === null || quote === void 0 ? void 0 : quote.citation)), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h4", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])((quote === null || quote === void 0 ? void 0 : quote.citation) || 'Unknown')), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h4", {
     style: {
       fontSize: '20px',
       fontWeight: 'bold',
@@ -142,12 +142,12 @@ var Quote = function Quote(_ref) {
       margin: 0,
       marginLeft: 'auto'
     }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(quote === null || quote === void 0 ? void 0 : quote.author))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])((quote === null || quote === void 0 ? void 0 : quote.author) || 'Unknown'))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "image__outer"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "image"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-    src: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])(quote === null || quote === void 0 ? void 0 : quote.srcUrl),
+    src: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__["__"])((quote === null || quote === void 0 ? void 0 : quote.srcUrl) || 'https://via.placeholder.com/150'),
     alt: "Author: ".concat((quote === null || quote === void 0 ? void 0 : quote.author) || 'Unknown')
   })))));
 };
@@ -206,22 +206,12 @@ var quotesEditor = function quotesEditor(_ref) {
       citation: post.meta.citation,
       srcUrl: ((_post$_embedded = post._embedded) === null || _post$_embedded === void 0 ? void 0 : (_post$_embedded$wpFe = _post$_embedded['wp:featuredmedia'][0]) === null || _post$_embedded$wpFe === void 0 ? void 0 : _post$_embedded$wpFe.source_url) || 'https://via.placeholder.com/150'
     };
-    setAttributes({
-      isChecked: true,
-      post: updatedPost
-    });
-  };
-
-  var handleApprove = function handleApprove() {
-    setAttributes({
-      isApproved: true
-    });
   };
 
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", Object(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["useBlockProps"])(), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["InspectorControls"], {
     key: "settings"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
-    title: "Theme Color",
+    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Theme Color'),
     initialOpen: true
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__["ColorPalette"], {
     onChange: function onChange(color) {
@@ -230,50 +220,10 @@ var quotesEditor = function quotesEditor(_ref) {
       });
     },
     value: attributes.color
-  }))), !attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "quotes__container"
-  }, !posts && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "quotes__noQuote"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Loading')), posts && (posts.length > 0 ? posts.map(function (post) {
-    var _post$_embedded2, _post$_embedded2$wpF, _attributes$post;
-
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      key: post.id,
-      className: "quotes__item",
-      onClick: function onClick() {
-        return handlePostSelect(post);
-      },
-      onKeyDown: function onKeyDown(e) {
-        return e.key === 'Enter' && handlePostSelect(post);
-      },
-      role: "button",
-      tabIndex: 0,
-      style: {
-        backgroundImage: "url( ".concat(((_post$_embedded2 = post._embedded) === null || _post$_embedded2 === void 0 ? void 0 : (_post$_embedded2$wpF = _post$_embedded2['wp:featuredmedia'][0]) === null || _post$_embedded2$wpF === void 0 ? void 0 : _post$_embedded2$wpF.source_url) || 'https://via.placeholder.com/150', ")"),
-        backgroundSize: 'cover'
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "quotes__check ".concat(((_attributes$post = attributes.post) === null || _attributes$post === void 0 ? void 0 : _attributes$post.id) === post.id && 'checked')
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h3", {
-      className: "quote__title"
-    }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])(post.title.rendered))) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null);
-  }) : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-    className: "quotes__noQuote"
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('No Quotes are available.'), " )")), (attributes === null || attributes === void 0 ? void 0 : attributes.isChecked) && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    className: "quotes__button",
-    onClick: handleApprove
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Approve'))), attributes.isApproved && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
     quote: attributes.post,
     color: attributes.color
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("button", {
-    className: "quote__button",
-    onClick: function onClick() {
-      return setAttributes({
-        isApproved: false,
-        post: null
-      });
-    }
-  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Change'))));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (quotesEditor);
@@ -322,14 +272,6 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('quo
       type: 'Object',
       default: null
     },
-    isChecked: {
-      type: 'boolean',
-      default: false
-    },
-    isApproved: {
-      type: 'boolean',
-      default: false
-    },
     color: {
       type: 'string',
       default: '#222'
@@ -344,7 +286,7 @@ Object(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__["registerBlockType"])('quo
   })(_components_quotes_editor__WEBPACK_IMPORTED_MODULE_3__["default"]),
   save: function save(_ref) {
     var attributes = _ref.attributes;
-    return attributes.post === null ? null : Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_Quote__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_components_Quote__WEBPACK_IMPORTED_MODULE_4__["default"], {
       quote: attributes === null || attributes === void 0 ? void 0 : attributes.post,
       color: attributes === null || attributes === void 0 ? void 0 : attributes.color
     });

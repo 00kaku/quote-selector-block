@@ -19,14 +19,6 @@ registerBlockType( 'quote/selector-block', {
 			type: 'Object',
 			default: null,
 		},
-		isChecked: {
-			type: 'boolean',
-			default: false,
-		},
-		isApproved: {
-			type: 'boolean',
-			default: false,
-		},
 		color: {
 			type: 'string',
 			default: '#222',
@@ -40,8 +32,6 @@ registerBlockType( 'quote/selector-block', {
 		};
 	} )( quotesEditor ),
 	save: ( { attributes } ) => {
-		return attributes.post === null ? null : (
-			<Quote quote={ attributes?.post } color={ attributes?.color } />
-		);
+		return <Quote quote={ attributes?.post } color={ attributes?.color } />;
 	},
 } );

@@ -16,7 +16,9 @@ const Quote = ( { quote, color } ) => {
 					'border-top': `2px solid ${ color }`,
 				} }
 			>
-				<p className="quote__quote">{ __( quote?.quote ) }</p>
+				<p className="quote__quote">
+					{ __( quote?.quote || 'No quote selected' ) }
+				</p>
 			</div>
 			<div className="quote__footer">
 				<div className="quote__footer__text">
@@ -29,7 +31,7 @@ const Quote = ( { quote, color } ) => {
 							margin: '0',
 						} }
 					>
-						{ __( quote?.citation ) }
+						{ __( quote?.citation || 'Unknown' ) }
 					</h3>
 					<h4
 						style={ {
@@ -43,13 +45,16 @@ const Quote = ( { quote, color } ) => {
 							marginLeft: 'auto',
 						} }
 					>
-						{ __( quote?.author ) }
+						{ __( quote?.author || 'Unknown' ) }
 					</h4>
 				</div>
 				<div className="image__outer">
 					<div className="image">
 						<img
-							src={ __( quote?.srcUrl ) }
+							src={ __(
+								quote?.srcUrl ||
+									'https://via.placeholder.com/150'
+							) }
 							alt={ `Author: ${ quote?.author || 'Unknown' }` }
 						/>
 					</div>
