@@ -20,11 +20,11 @@ import { useEffect } from 'react';
 const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 	const handlePostSelect = ( post ) => {
 		const updatedPost = {
-			id: post.id,
-			title: post.title.rendered,
-			quote: post.meta.quote,
-			author: post.meta.author,
-			citation: post.meta.citation,
+			id: post?.id,
+			title: post.title?.rendered,
+			quote: post.meta?.quote,
+			author: post.meta?.author,
+			citation: post.meta?.citation,
 			srcUrl:
 				post._embedded?.[ 'wp:featuredmedia' ][ 0 ]?.source_url ||
 				'https://via.placeholder.com/150',
@@ -61,7 +61,8 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 		attributes.optionsArray.forEach( ( element ) => {
 			if (
 				element.label.toLowerCase().includes( term.toLowerCase() ) &&
-				element.value !== 0
+				element.value !== 0 &&
+				term !== ''
 			) {
 				if ( tempArray.length === 0 ) {
 					tempArray.push( {
@@ -72,8 +73,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 				tempArray.push( element );
 			}
 		} );
-
-		if ( tempArray.length > 0 && term !== '' ) {
+		if ( tempArray.length > 0 && term ) {
 			setAttributes( { spliceOptionsArray: tempArray } );
 		} else {
 			setAttributes( { spliceOptionsArray: attributes.optionsArray } );
@@ -107,7 +107,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 					<SelectControl
 						options={ attributes.spliceOptionsArray }
 						onChange={ ( post ) =>
-							post !== 0 && handlePostSelect( JSON.parse( post ) )
+							handlePostSelect( JSON.parse( post ) )
 						}
 					/>
 				</PanelBody>

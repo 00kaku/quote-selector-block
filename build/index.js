@@ -199,14 +199,14 @@ var quotesEditor = function quotesEditor(_ref) {
       attributes = _ref.attributes;
 
   var handlePostSelect = function handlePostSelect(post) {
-    var _post$_embedded, _post$_embedded$wpFe;
+    var _post$title, _post$meta, _post$meta2, _post$meta3, _post$_embedded, _post$_embedded$wpFe;
 
     var updatedPost = {
-      id: post.id,
-      title: post.title.rendered,
-      quote: post.meta.quote,
-      author: post.meta.author,
-      citation: post.meta.citation,
+      id: post === null || post === void 0 ? void 0 : post.id,
+      title: (_post$title = post.title) === null || _post$title === void 0 ? void 0 : _post$title.rendered,
+      quote: (_post$meta = post.meta) === null || _post$meta === void 0 ? void 0 : _post$meta.quote,
+      author: (_post$meta2 = post.meta) === null || _post$meta2 === void 0 ? void 0 : _post$meta2.author,
+      citation: (_post$meta3 = post.meta) === null || _post$meta3 === void 0 ? void 0 : _post$meta3.citation,
       srcUrl: ((_post$_embedded = post._embedded) === null || _post$_embedded === void 0 ? void 0 : (_post$_embedded$wpFe = _post$_embedded['wp:featuredmedia'][0]) === null || _post$_embedded$wpFe === void 0 ? void 0 : _post$_embedded$wpFe.source_url) || 'https://via.placeholder.com/150'
     };
     setAttributes({
@@ -248,7 +248,7 @@ var quotesEditor = function quotesEditor(_ref) {
       term: term
     });
     attributes.optionsArray.forEach(function (element) {
-      if (element.label.toLowerCase().includes(term.toLowerCase()) && element.value !== 0) {
+      if (element.label.toLowerCase().includes(term.toLowerCase()) && element.value !== 0 && term !== '') {
         if (tempArray.length === 0) {
           tempArray.push({
             value: 0,
@@ -260,7 +260,7 @@ var quotesEditor = function quotesEditor(_ref) {
       }
     });
 
-    if (tempArray.length > 0 && term !== '') {
+    if (tempArray.length > 0 && term) {
       setAttributes({
         spliceOptionsArray: tempArray
       });
@@ -297,7 +297,7 @@ var quotesEditor = function quotesEditor(_ref) {
   }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
     options: attributes.spliceOptionsArray,
     onChange: function onChange(post) {
-      return post !== 0 && handlePostSelect(JSON.parse(post));
+      return handlePostSelect(JSON.parse(post));
     }
   }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
     quote: attributes.post,
