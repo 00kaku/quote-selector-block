@@ -4,7 +4,7 @@ import {
 	ColorPalette,
 } from '@wordpress/block-editor';
 import Quote from './Quote';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { PanelBody } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useEffect } from 'react';
 /**
@@ -37,7 +37,7 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 		if ( posts?.length > 0 ) {
 			optionsArray.push( {
 				value: 0,
-				label: 'Select a quote from below ',
+				label: 'Remove quote',
 			} );
 			posts.map( ( post ) => {
 				return optionsArray.push( {
@@ -61,22 +61,21 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 		attributes.optionsArray.forEach( ( element ) => {
 			if (
 				element.label.toLowerCase().includes( term.toLowerCase() ) &&
-				element.value !== 0 &&
 				term !== ''
 			) {
-				if ( tempArray.length === 0 ) {
-					tempArray.push( {
-						value: 0,
-						label: __( 'Updated Quotes' ),
-					} );
-				}
 				tempArray.push( element );
 			}
 		} );
 		if ( tempArray.length > 0 && term ) {
-			setAttributes( { spliceOptionsArray: tempArray } );
+			setAttributes( {
+				spliceOptionsArray: tempArray,
+			} );
+		} else if ( ! term ) {
+			setAttributes( {
+				spliceOptionsArray: attributes.optionsArray,
+			} );
 		} else {
-			setAttributes( { spliceOptionsArray: attributes.optionsArray } );
+			setAttributes( { spliceOptionsArray: [] } );
 		}
 	};
 	return (
@@ -94,22 +93,45 @@ const quotesEditor = ( { posts, setAttributes, attributes } ) => {
 				<PanelBody
 					title={ __( 'Select quote', 'quotes-selector-plugin' ) }
 					initialOpen={ true }
+					style={ { padding: '10px' } }
 				>
-					<input
-						type="text"
-						placeholder="Search to filter quotes."
-						onChange={ ( event ) =>
-							handleTermChange( event.target.value )
-						}
-						value={ attributes.term }
-						className="quotes-selector-filter"
-					/>
-					<SelectControl
-						options={ attributes.spliceOptionsArray }
-						onChange={ ( post ) =>
-							handlePostSelect( JSON.parse( post ) )
-						}
-					/>
+					<div className="quotes-selector-items">
+						<input
+							type="text"
+							placeholder="Search for a quote..."
+							onChange={ ( event ) =>
+								handleTermChange( event.target.value )
+							}
+							value={ attributes.term }
+							className="quotes-selector-filter"
+						/>
+
+						{ attributes?.spliceOptionsArray.map( ( option ) => {
+							return (
+								<span
+									key={
+										JSON.parse( option?.value )?.post?.id
+									}
+									className="quotes-selector-item"
+									role="button"
+									tabIndex="0"
+									onClick={ () =>
+										handlePostSelect(
+											JSON.parse( option.value )
+										)
+									}
+									onKeyDown={ ( event ) =>
+										event.key === 'Enter' &&
+										handlePostSelect(
+											JSON.parse( option.value )
+										)
+									}
+								>
+									{ option.label }
+								</span>
+							);
+						} ) }
+					</div>
 				</PanelBody>
 			</InspectorControls>
 			<div>

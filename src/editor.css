@@ -9,4 +9,30 @@
 .quotes-selector-filter{
 	width: 100%;
 	margin-bottom: 5px;
+	border:none !important;
+	margin-left:0 !important;
+	border-bottom: 1px solid #ddd !important;
+	border-radius: 0 !important;
+}
+.quotes-selector-filter:focus {outline: 3px solid #ddd !important;}
+.quotes-selector-items{
+	border: 1px solid rgb(214, 212, 212);
+	height: 150px;
+	overflow:scroll;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+.quotes-selector-items::-webkit-scrollbar {
+	display: none;
+  }
+
+.quotes-selector-item{
+	width: 100%;
+	display:block;
+	padding: 5px 10px;
+}
+
+.quotes-selector-item:hover {
+	background-color: #ddd;
+	cursor:pointer;
 }

@@ -221,7 +221,7 @@ var quotesEditor = function quotesEditor(_ref) {
     if ((posts === null || posts === void 0 ? void 0 : posts.length) > 0) {
       optionsArray.push({
         value: 0,
-        label: 'Select a quote from below '
+        label: 'Remove quote'
       });
       posts.map(function (post) {
         return optionsArray.push({
@@ -248,14 +248,7 @@ var quotesEditor = function quotesEditor(_ref) {
       term: term
     });
     attributes.optionsArray.forEach(function (element) {
-      if (element.label.toLowerCase().includes(term.toLowerCase()) && element.value !== 0 && term !== '') {
-        if (tempArray.length === 0) {
-          tempArray.push({
-            value: 0,
-            label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Updated Quotes')
-          });
-        }
-
+      if (element.label.toLowerCase().includes(term.toLowerCase()) && term !== '') {
         tempArray.push(element);
       }
     });
@@ -264,9 +257,13 @@ var quotesEditor = function quotesEditor(_ref) {
       setAttributes({
         spliceOptionsArray: tempArray
       });
-    } else {
+    } else if (!term) {
       setAttributes({
         spliceOptionsArray: attributes.optionsArray
+      });
+    } else {
+      setAttributes({
+        spliceOptionsArray: []
       });
     }
   };
@@ -285,21 +282,36 @@ var quotesEditor = function quotesEditor(_ref) {
     value: attributes.color
   })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["PanelBody"], {
     title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__["__"])('Select quote', 'quotes-selector-plugin'),
-    initialOpen: true
+    initialOpen: true,
+    style: {
+      padding: '10px'
+    }
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "quotes-selector-items"
   }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("input", {
     type: "text",
-    placeholder: "Search to filter quotes.",
+    placeholder: "Search for a quote...",
     onChange: function onChange(event) {
       return handleTermChange(event.target.value);
     },
     value: attributes.term,
     className: "quotes-selector-filter"
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__["SelectControl"], {
-    options: attributes.spliceOptionsArray,
-    onChange: function onChange(post) {
-      return handlePostSelect(JSON.parse(post));
-    }
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), attributes === null || attributes === void 0 ? void 0 : attributes.spliceOptionsArray.map(function (option) {
+    var _JSON$parse, _JSON$parse$post;
+
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("span", {
+      key: (_JSON$parse = JSON.parse(option === null || option === void 0 ? void 0 : option.value)) === null || _JSON$parse === void 0 ? void 0 : (_JSON$parse$post = _JSON$parse.post) === null || _JSON$parse$post === void 0 ? void 0 : _JSON$parse$post.id,
+      className: "quotes-selector-item",
+      role: "button",
+      tabIndex: "0",
+      onClick: function onClick() {
+        return handlePostSelect(JSON.parse(option.value));
+      },
+      onKeyDown: function onKeyDown(event) {
+        return event.key === 'Enter' && handlePostSelect(JSON.parse(option.value));
+      }
+    }, option.label);
+  })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_Quote__WEBPACK_IMPORTED_MODULE_2__["default"], {
     quote: attributes.post,
     color: attributes.color
   })));
