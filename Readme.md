@@ -1,12 +1,10 @@
 # A custom gutenberg block to select and display custom post type-'quotes'.
 
-The user can select from a grid of all the published quotes available. And the the block will display the quote on the page.
-If the user want it can also change the quote using the change button. The user can also change the theme color of the quote
-from the side controls once a quote is selected.
+The user after selecting the block can use the settings tab to select the quote from the scrollable list of all the quotes. User can also use the search bar available in the **Select post** setting panel to search and filter the quote titles. User can also use **Color theme** settings panel to select and change the theme color of the quote block.
 
 #### Screenshots
-![Screenshot from 2021-05-04 16-43-46](https://user-images.githubusercontent.com/22026768/116995773-1dfe3d00-acf8-11eb-9c84-d230bd62dfba.png)
-![Screenshot from 2021-05-04 16-44-03](https://user-images.githubusercontent.com/22026768/116995781-1f2f6a00-acf8-11eb-98e6-68ac1fa73f05.png)
+![Screenshot from 2021-05-07 16-07-52](https://user-images.githubusercontent.com/22026768/117437908-7c245d80-af4e-11eb-8f15-d7dac060525a.png)
+![Screenshot from 2021-05-07 16-08-19](https://user-images.githubusercontent.com/22026768/117437915-7d558a80-af4e-11eb-8d3e-c51c60652165.png)
 
 #### How to use
 1. Get the **quotes-cpt** plugin from the repo **https://github.com/00kaku/quotes-cpt**.
